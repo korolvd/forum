@@ -1,15 +1,15 @@
 package ru.forum.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String password;
-
-    public static User of(String username) {
-        User user = new User();
-        user.username = username;
-        return user;
-    }
 
     public int getId() {
         return id;

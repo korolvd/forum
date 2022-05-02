@@ -2,35 +2,36 @@ package ru.forum.service;
 
 import org.springframework.stereotype.Service;
 import ru.forum.model.Post;
+import ru.forum.store.PostRepository;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 @Service
 public class PostService {
 
-    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
-    private final AtomicInteger ids = new AtomicInteger(0);
+    private final PostRepository store;
+
+    public PostService(PostRepository posts) {
+        this.store = posts;
+    }
 
 
-    public Collection<Post> getAll() {
-        return posts.values();
+    public List<Post> getAll() {
+        List<Post> posts = new ArrayList<>();
+        store.findAll().forEach(posts::add);
+        return posts;
     }
 
     public Post findById(int id) {
-        return posts.get(id);
+        return store.findById(id).get();
     }
 
     public void save(Post post) {
-        if (post.getId() == 0) {
-            post.setId(ids.incrementAndGet());
-            post.setCreated(LocalDateTime.now());
-            posts.put(post.getId(), post);
-        } else {
-            posts.replace(post.getId(), post);
+        if (post.getCreated() == null) {
+            post.setCreated(Calendar.getInstance());
         }
+        store.save(post);
     }
 }

@@ -39,6 +39,9 @@
                     Регистрация
                 </div>
                 <div class="card-body">
+                    <div th:if="${fail}" class="alert alert-danger" role="alert">
+                        <span th:text="${errMessage}"/>
+                    </div>
                     <form th:action="@{/registration}" method="POST">
                         <div class="form-group">
                             <label for="username">Логин</label>

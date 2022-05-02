@@ -1,13 +1,24 @@
 package ru.forum.model;
 
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+
+@Entity
+@Table(name = "post")
 public class Post {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
         private String name;
         private String description;
-        private LocalDateTime created;
 
+        @Temporal(TemporalType.TIMESTAMP)
+        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
+        private Calendar created;
 
         public int getId() {
                 return id;
@@ -33,11 +44,11 @@ public class Post {
                 this.description = description;
         }
 
-        public LocalDateTime getCreated() {
+        public Calendar getCreated() {
                 return created;
         }
 
-        public void setCreated(LocalDateTime created) {
+        public void setCreated(Calendar created) {
                 this.created = created;
         }
 }
