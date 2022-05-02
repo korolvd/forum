@@ -1,5 +1,6 @@
 package ru.forum.control;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,18 +22,21 @@ public class PostControl {
 
     @GetMapping("/post/{id}")
     public String detailsPost(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("post", postService.findById(id));
         return "post";
     }
 
     @GetMapping("/edit/{id}")
     public String editPost(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("post", postService.findById(id));
         return "edit";
     }
 
     @GetMapping("/new")
-    public String newPost() {
+    public String newPost(Model model) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "new";
     }
 

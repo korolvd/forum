@@ -1,10 +1,8 @@
 package ru.forum.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 @Entity

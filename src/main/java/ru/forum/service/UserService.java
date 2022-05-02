@@ -25,10 +25,10 @@ public class UserService {
     public User save(User user) {
         User rsl = null;
         try {
-            user = store.save(user);
+            rsl = store.save(user);
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
-        return user;
+        return rsl;
     }
 }
