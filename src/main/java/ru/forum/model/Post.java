@@ -18,6 +18,14 @@ public class Post {
         @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
         private Calendar created;
 
+        public static Post of(String name) {
+                Post post = new Post();
+                post.name = name;
+                post.description = "";
+                post.created = Calendar.getInstance();
+                return post;
+        }
+
         public int getId() {
                 return id;
         }
